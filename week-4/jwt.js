@@ -12,13 +12,12 @@
 //   Returns an array of all users if user is signed in (token is correct)
 //   Returns 403 status code if not
 
-
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const jwtPassword = "123456";
 
 const app = express();
-app.use(express.json())
+app.use(express.json());
 
 const ALL_USERS = [
   {
@@ -49,8 +48,10 @@ function userExists(username, password) {
   //     return false
   //   }
   // }
-  let userExist = ALL_USERS.find(user => user.username == username && user.password == password)
-  return userExist
+  let userExist = ALL_USERS.find(
+    (user) => user.username == username && user.password == password
+  );
+  return userExist;
 }
 
 app.post("/signin", function (req, res) {
@@ -71,21 +72,19 @@ app.post("/signin", function (req, res) {
 
 app.get("/users", function (req, res) {
   const token = req.headers.authorization;
-  
-    const decoded = jwt.verify(token, jwtPassword);
-    const username = decoded.username;
-    // return a list of users other than this username
-    res.json({
-      users:ALL_USERS.filter(function(value){
-        if(value.username == username){
-          return false
-        }
-        else{
-          return true
-        }
-      })
-    })
-  
+
+  const decoded = jwt.verify(token, jwtPassword);
+  const username = decoded.username;
+  // return a list of users other than this username
+  res.json({
+    users: ALL_USERS.filter(function (value) {
+      if (value.username == username) {
+        return false;
+      } else {
+        return false;
+      }
+    }),
+  });
 });
 
-app.listen(3000)
+app.listen(3000);
