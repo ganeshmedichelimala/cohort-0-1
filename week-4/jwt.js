@@ -81,7 +81,7 @@ app.get("/users", function (req, res) {
       if (value.username == username) {
         return false;
       } else {
-        return false;
+        return true;
       }
     }),
   });
