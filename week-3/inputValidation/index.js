@@ -7,8 +7,4 @@ app.post("/health-checkup", (req, res)=>{
   const kidneysLength = kidneys.length
   res.send("You have "+ kidneysLength + " kidneys")
 })
-
-
-app
-
 app.listen(3000)
