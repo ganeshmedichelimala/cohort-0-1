@@ -1,35 +1,32 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [counter, setCounter] = useState(0);  
-  const [todos, setTodos] = useState([])
-  useEffect(()=>{
-    const fetchTodos = async ()=>{
-      const response = await fetch("https://sum-server.100xdevs.com/todos")
-      const data = await response.json()
-      setTodos(data.todos)
-    }
-    fetchTodos();
-  },[counter])
-
+ const [todos,setTodos] = useState([])
+ useEffect(()=>{
+   axios.get("https://sum-server.100xdevs.com/todos")
+  .then(function(response){
+    setTodos(response.data.todos)
+  })
+ },[])
 
   return (
     <>
-      <button onClick={() => {
-        setCounter(counter + 1);
-      }}>Get Todos</button>
-      <ul>
-        {todos.map(todo=>(
-          <li key={todo.id}>
-            <h3>{todo.title}</h3>
-            <p>{todo.description}</p>
-          </li>
-        ))}
-      </ul>
+     {todos.map(todo => <Todo key={todo.id}  title={todo.title} description = {todo.description} />)}
     </>
-    
-  );
+  )
 }
 
-export default App;
+function Todo(props){
+  return (
+    <div>
+      <h2>{props.title}</h2>
+      <h4>{props.description}</h4>
+    </div>
+  )
+}
+
+export default App
